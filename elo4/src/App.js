@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GlobalStyles from './styles/global';
+import CarrinhoDeCompras from './Components/CarrinhoDeCompras'
 
-const App = props => {
+class App extends React.Component {
   // static.propTypes = {};
 
-  return (
-    <div className="App">
-      <GlobalStyles />
 
-      <h1>Hello world</h1>
-    </div>
-  );
+  render() {
+    return (
+      <div className="App">
+        <GlobalStyles />
+
+        <CarrinhoDeCompras />
+      </div>
+    );
+  }
 };
 
 export default App;
