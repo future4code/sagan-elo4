@@ -1,12 +1,19 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-import Sidenav from '../Sidenav/Sidenav';
 import Filtro from './Filtro';
 import Item from './Item';
 
-import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
+
+const styles = theme => ({
+  gridList: {
+    width: '100%',
+    justifyContent: 'center'
+  }
+})
 
 class ListagemDeItens extends React.Component {
   constructor(props) {
@@ -18,7 +25,7 @@ class ListagemDeItens extends React.Component {
       max: Infinity,
       min: 0,
       filterCateogry: "none",
-      filterSelect: ""
+      filterSelect: "",
     }
   }
 
@@ -115,11 +122,19 @@ class ListagemDeItens extends React.Component {
     })
   }
 
+  handleClickProduct = item => {
+    this.props.showProduct(item)
+  }
+
   render() {
+
+    const { classes } = this.props;
 
     const list = this.state.dataItems.map((item) => {
 
       const items = <Item
+        productInfo={this.handleClickProduct}
+        item={item}
         key={item.id}
         urlImg={item.photos[0]}
         name={item.name}
@@ -142,21 +157,20 @@ class ListagemDeItens extends React.Component {
     })
 
     return (
-        <Grid container spacing={24}>
-          <Grid item xs={6} sm={3}>
-            <Sidenav url={this.props.url} choseCategory={this.selectCategory} />
-          </Grid>
-          <Grid item xs={18} sm={9}>
-            <Filtro minMax={this.filterItemsByPrice} order={this.orderItems} />
-            <GridList>
-              {list}
-            </GridList>
-          </Grid>
-        </Grid>
+      <div>
+        <Filtro minMax={this.filterItemsByPrice} order={this.orderItems} />
+        <GridList className={classes.gridList}>
+          {list}
+        </GridList>
+      </div>
     );
   }
 }
 
+ListagemDeItens.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 
-export default ListagemDeItens;
+
+export default withStyles(styles)(ListagemDeItens);

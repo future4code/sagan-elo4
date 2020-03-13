@@ -9,12 +9,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
   root: {
-    width: '100%',
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
   },
   wrapper: {
     textAlign: 'center',
+    backgroundColor: '#30bfbf',
   },
   title: {
     fontSize: '22px',
