@@ -5,19 +5,21 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import CartIcon from '@material-ui/icons/AddShoppingCart';
+
 
 const styles = {
   card: {
-    width: 275,
+    width: 300,
     minWidth: 275,
     margin: 10,
+    borderRadius: '15%',
+    backgroundColor: '#ffa020',
   },
   image: {
     width: '100%',
     height: '250px',
     margin: 0,
+    borderRadius: '15%',
   },
   title: {
     fontSize: 14,
@@ -27,26 +29,28 @@ const styles = {
   }
 };
 
-function Item(props) {
-  const { classes } = props;
+class Item extends React.Component {
+
+render() {
+  const { classes } = this.props;
 
   return (
-    <Card className={classes.card}>
-      <img className={classes.image} src={props.urlImg} alt={props.name}/>
+    <Card onClick={() => this.props.productInfo(this.props.item)} className={classes.card}>
+      <img className={classes.image} src={this.props.urlImg} alt={this.props.name} />
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {props.name}
+          {this.props.name}
         </Typography>
         <Typography variant="h5" component="h2">
-          {props.price}
+          {this.props.price}
         </Typography>
         <Typography className={classes.price} color="textSecondary">
-          {props.installments}
+          {this.props.installments}
         </Typography>
-        <Button variant="contained" color="default" className={classes.button}><CartIcon />Adicionar</Button>
       </CardContent>
     </Card>
   );
+}
 }
 
 Item.propTypes = {
