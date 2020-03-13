@@ -1,6 +1,9 @@
 import React from 'react';
 //import PropTypes from 'prop-types';
 import GlobalStyles from './styles/global';
+
+import CadastroItensVenda from './Components/CadastroItensVenda'
+import Footer from './Components/Footer';
 import Sidenav from './components/Sidenav/Sidenav';
 import ListagemDeItens from './components/ListagemDeItens/ListagemDeItens.js';
 import Produto from './components/Produto/Produto';
