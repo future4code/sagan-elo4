@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GlobalStyles from './styles/global';
+import CadastroItensVenda from './Components/CadastroItensVenda'
 
 const App = props => {
   // static.propTypes = {};
@@ -8,8 +9,7 @@ const App = props => {
   return (
     <div className="App">
       <GlobalStyles />
-
-      <h1>Hello world</h1>
+      <CadastroItensVenda/>
     </div>
   );
 };
