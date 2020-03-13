@@ -14,10 +14,13 @@ const styles = theme => ({
   wrapper: {
     textAlign: 'center',
     backgroundColor: '#30bfbf',
+    padding: '20px 0px',
+    margin: '0px',
   },
   title: {
     fontSize: '22px',
     fontWeight: 'bold',
+    marginTop: '0px' 
   }
 });
 
