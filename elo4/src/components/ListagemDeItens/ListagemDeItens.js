@@ -9,6 +9,10 @@ import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 
 const styles = theme => ({
+  wrapper: {
+    margin: 0,
+    padding: 0
+  },
   gridList: {
     width: '100%',
     justifyContent: 'center'
@@ -157,8 +161,8 @@ class ListagemDeItens extends React.Component {
     })
 
     return (
-      <div>
-        <Filtro minMax={this.filterItemsByPrice} order={this.orderItems} />
+      <div className={classes.wrapper}>
+        <Filtro  className={classes.wrapper} minMax={this.filterItemsByPrice} order={this.orderItems} />
         <GridList className={classes.gridList}>
           {list}
         </GridList>
