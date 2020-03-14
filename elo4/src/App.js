@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GlobalStyles from './styles/global';
+import CarrinhoDeCompras from './Components/CarrinhoDeCompras'
 
 import Header from './Components/header';
 import CadastroItensVenda from './Components/CadastroItensVenda';
@@ -34,8 +35,7 @@ class App extends React.Component {
       item: ''
     }
   }
-  // static.propTypes = {};
-
+  
   componentDidMount() {
     this.changeScreen()
   }
