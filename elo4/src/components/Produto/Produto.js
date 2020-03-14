@@ -78,7 +78,7 @@ class Produto extends React.Component {
               + (this.props.item.price / this.props.item.installments).toFixed(2).replace(".", ",")}
           </p>
           <Button variant="contained" color="default" className={classes.button}><CartIcon />Adicionar ao Carrinho</Button>
-          <p><p className={classes.category}>Categoria:</p> {this.props.item.category}</p>
+          <div><p className={classes.category}>Categoria:</p> {this.props.item.category}</div>
           <p>Meios de Pagamento: {this.props.item.paymentMethod}</p>
         </Grid>
       </Grid>
