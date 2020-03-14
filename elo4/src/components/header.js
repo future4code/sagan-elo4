@@ -66,7 +66,7 @@ class Header extends React.Component {
         </div>
         <div>
         <Button variant="contained" color="default" className={classes.iconCart}><CartIcon/>Carrinho de Compras</Button>
-        <Button variant="contained" color="default"><AddIcon/>Novo Produto</Button>
+        <Button variant="contained" color="default" onClick={() => {this.props.newProduct()}}><AddIcon/>Novo Produto</Button>
         </div>
       </div>
     )
