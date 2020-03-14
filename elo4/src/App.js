@@ -3,102 +3,106 @@ import PropTypes from 'prop-types';
 import GlobalStyles from './styles/global';
 import CarrinhoDeCompras from './Components/CarrinhoDeCompras'
 
-const BaseUrl = "https://us-central1-future-apis.cloudfunctions.net/elo4"
+import Header from './Components/header';
+import CadastroItensVenda from './Components/CadastroItensVenda';
+import Footer from './Components/Footer';
+
+import Sidenav from './Components/Sidenav/Sidenav';
+import ListagemDeItens from './Components/ListagemDeItens/ListagemDeItens.js';
+import Produto from './Components/Produto/Produto';
+
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+
+
+const baseUrl = 'https://us-central1-future-apis.cloudfunctions.net/elo4/products';
+
+const styles = theme => ({
+  grid: {
+    padding: '0px',
+    margin: '0px'
+  },
+})
+
 
 class App extends React.Component {
-  // static.propTypes = {};
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state = {
-      cardCarrinho: [
-        {
-          id: "Q8cybKtKmAEQphrXccQO",
-          paymentMethod: "card",
-          photos: ["https://live.staticflickr.com/5735/31369632556_bc4884f319_b.jpg"],
-          name: "Produto 1",
-          installments: 3,
-          category: "Categoria 1",
-          price: 10,
-          description: "Esse é um produto muito legal!"
-        },
-        {
-          id: "Q8cybKtKmAEQphrXcc22",
-          paymentMethod: "card",
-          photos: ["https://live.staticflickr.com/5762/31425462216_1aeb703d38_b.jpg"],
-          name: "Produto 2",
-          installments: 3,
-          category: "Categoria 1",
-          price: 40,
-          description: "Esse é um produto muito útil para você!"
-        },
-        {
-          id: "Q8cybKtKmAEQphrXcc33",
-          paymentMethod: "card",
-          photos: ["https://live.staticflickr.com/65535/49364756227_f2d03c2b77_b.jpg"],
-          name: "Produto 3",
-          installments: 3,
-          category: "Categoria 1",
-          price: 98.55,
-          description: "Compre, compre, compre!!"
-        },
-        {
-          id: "Q8cybKtKmAEQphrXcc55",
-          paymentMethod: "card",
-          photos: ["https://live.staticflickr.com/5826/21286099678_c0aa4182a4_b.jpg"],
-          name: "Produto 4",
-          installments: 3,
-          category: "Categoria 1",
-          price: 2340,
-          description: "Esse é um produto muito legal!"
-        }
 
-      ],
-      produtos: [
-        {
-          id: "",
-          paymentMethod: "",
-          photos: "",
-          name: "",
-          installments: 0,
-          category: "",
-          price: 0,
-          description: ""
-        }, 
-      ] 
+    this.state = {
+      page: 'list',
+      screen: '',
+      item: ''
     }
   }
+  
+  componentDidMount() {
+    this.changeScreen()
+  }
 
-apagarProdutoDoCarrinho = elem => {
-  const novoCarrinho = this.state.cardCarrinho.filter(el => el.id !== elem.id);
-  this.setState({cardCarrinho: novoCarrinho});
-};
+  handleShowProduct = async item => {
+    
+    await this.setState({
+      page: 'product',
+      item: item
+    })
+    
+    this.changeScreen()
+  }
 
-exibirCarrinho = () => {
-  this.state.exibirCarrinho === 
-  false ? this.setState({ exibirCarrinho: true }) 
-  : this.setState({ exibirCarrinho: false })
-}
+  handleNewProduct = async () => {
 
-adicionarAoCarrinho = id => {
-  const item = this.state.produtos.find(item => {
-    return item.id === id
-  })
+    console.log("Funcionando")
+    await this.setState({
+      page: 'newProduct'
+    })
 
-  const novoItem = [...this.state.cardCarrinho, item]
-  this.setState({cardCarrinho: novoItem})
-}
+    this.changeScreen()
+  }
+
+  changeScreen = () => {
+    if (this.state.page === 'list') {
+
+      this.setState({
+        screen: <ListagemDeItens url={baseUrl} showProduct={this.handleShowProduct}/>
+      })
+
+    } else if (this.state.page === 'product') {
+
+      this.setState({
+        screen: <Produto url={baseUrl} item={this.state.item} />
+      })
+
+    } else if (this.state.page === 'newProduct')
+
+    this.setState({
+      screen: <CadastroItensVenda />
+    })
+  }
 
   render() {
+
+    const { classes } = this.props;
+
     return (
-      <div className="App">
+      <Grid container spacing={24}>
         <GlobalStyles />
-        <h2> Carrinho de compras </h2>
-        <hr />
-        <CarrinhoDeCompras card={this.state.cardCarrinho} delete={this.apagarProdutoDoCarrinho} />
-      </div>
-    );
+        <Grid className={classes.grid} item xs={12} sm={12}>
+          <Header  newProduct={this.handleNewProduct} />
+        </Grid>
+        <Grid className={classes.grid} item xs={12} sm={3}>
+          <Sidenav url={baseUrl} choseCategory={this.selectCategory} />
+        </Grid>
+        <Grid className={classes.grid} item xs={12} sm={9}>
+          {this.state.screen}
+        </Grid>
+      </Grid>
+    )
   }
+}
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
-export default App;
-
+export default withStyles(styles)(App);
